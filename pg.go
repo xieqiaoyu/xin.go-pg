@@ -3,10 +3,17 @@ package sql
 import (
 	"context"
 	"github.com/go-pg/pg/v9"
+	"github.com/go-pg/pg/v9/orm"
 	"github.com/xieqiaoyu/xin"
 	"github.com/xieqiaoyu/xin/db/sql"
 	xlog "github.com/xieqiaoyu/xin/log"
 )
+
+//PgDB An interface for run Transaction with dependence injection
+type PgDB interface {
+	orm.DB
+	RunInTransaction(fn func(*pg.Tx) error) error
+}
 
 //pgConfig config support pg setting
 type PgConfig interface {
